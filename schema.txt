@@ -4,7 +4,7 @@ category
 notes 
 amount
 date
-income/expense ( to determine which minus or add to value)
+type: income/expense ( to determine which minus or add to value)
 username( when there is more than 1 user// updated feature) 
 
 Basic Backend operations should include:
@@ -19,3 +19,25 @@ search by category
 search by notes 
 
 total sum displayed on each refresh of the home page 
+
+////////////////SQL /////////////////////////////////////////
+DROP TABLE transaction_item;
+
+CREATE TABLE transaction_item (
+    transaction_id int NOT NULL AUTO_INCREMENT,
+    type varchar(255) NOT NULL,
+    transaction_date DATE NOT NULL,
+    category varchar(255) NOT NULL,
+    amount float NOT NULL,
+    notes varchar(255),
+    username varchar(255) NOT NULL DEFAULT 'guest',
+    PRIMARY KEY (transaction_id)
+);
+
+ALTER TABLE transaction_item AUTO_INCREMENT=1;
+
+CREATE INDEX search_by_date
+ON transaction_item(transaction_date);
+
+CREATE INDEX search_by_category
+ON transaction_item(category);

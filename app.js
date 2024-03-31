@@ -1,9 +1,15 @@
 // import express
 const express = require("express");
 
+// import body praser 
+const bodyPraser = require("body-parser");
+
+
 // set up express app
 const app = express();
 
+// utilize body parser
+app.use(bodyPraser.json());
 // setting up routes
  app.use(require("./routes"));
 

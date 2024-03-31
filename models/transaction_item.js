@@ -13,33 +13,33 @@ const sequelize = new Sequelize(
 const TransactionItem = sequelize.define(
     "transaction_item",
     {
-        ID: {
+        transaction_id: {
             type: DataTypes.INTEGER(30),
             allowNull: false,
             primaryKey: true,
             default: "",
         },
-        Type: {
+        type: {
             type: DataTypes.STRING(30),
             allowNull: false,
         },
-        Date: {
+        transaction_date: {
             type: DataTypes.DATE,
             allowNull: false,
         },
-        Category: {
+        category: {
             type: DataTypes.STRING(30),
             allowNull: false,
         },
-        Amount: {
+        amount: {
             type: DataTypes.FLOAT(30),
             allowNull: false,
         },
-        Notes: {
+        notes: {
             type: DataTypes.STRING(30),
             allowNull: false,
         },
-        USername: {
+        username: {
             type: DataTypes.STRING(30),
             allowNull: false,
         },
