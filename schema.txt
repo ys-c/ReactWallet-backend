@@ -1,0 +1,21 @@
+Each transaction should have:
+ID 
+category 
+notes 
+amount
+date
+income/expense ( to determine which minus or add to value)
+username( when there is more than 1 user// updated feature) 
+
+Basic Backend operations should include:
+creating new transaction
+editing existing transactions
+removing existing transactions
+
+filter by day 
+filter by month 
+filter by year
+search by category
+search by notes 
+
+total sum displayed on each refresh of the home page 

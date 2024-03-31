@@ -1,0 +1,8 @@
+{
+  "dependencies": {
+    "express": "^4.19.2",
+    "mysql2": "^3.9.3",
+    "save": "^2.9.0",
+    "sequelize": "^6.37.1"
+  }
+}
