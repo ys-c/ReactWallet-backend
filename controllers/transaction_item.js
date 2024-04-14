@@ -19,7 +19,7 @@ exports.getAllTransactionItem = async (req, res) => {
 exports.createTransactionItem = async (req, res) => {
     try {
         await TransactionItem.create(req.body).then(function (transactionItem) {
-            console.log("item:"+ transactionItem)
+            // console.log("item:" + transactionItem)
             res.status(200).json({ message: "success" });
         })
 
@@ -58,40 +58,38 @@ exports.deleteTransactionItembyId = async (req, res) => {
     }
 };
 
-exports.getTotalBalance = async(req, res) => {
-    try{
-        var balanceAmount=0;
+exports.getTotalBalance = async (req, res) => {
+    try {
+        let balanceAmount = 0;
         const transactionItem = await TransactionItem.findAll();
-        if(transactionItem.length === 0)
-        {
+        if (transactionItem.length === 0) {
             res.status(200).json(balanceAmount);
 
         }
-        else
-        {
-            let expenses =0;
-            let income =0;
-            const expenseTransactionItem = await TransactionItem.findAll({ where: { type: 'expenses' }});
-            const incomeTransactionItem = await TransactionItem.findAll({ where: { type: 'income' }});
+        else {
+            let expensesValue = 0;
+            let incomeValue = 0;
+            const expenseTransactionItem = await TransactionItem.findAll({ where: { type: 'expenses' } });
+            const incomeTransactionItem = await TransactionItem.findAll({ where: { type: 'income' } });
             expenseTransactionItem.forEach(item => {
-                expenses += item.amount;
+                expensesValue += item.amount;
             });
             incomeTransactionItem.forEach(item => {
-                income += item.amount;
-            }); 
-            balanceAmount = income - expenses;
-            balanceAmount=balanceAmount.toFixed(2);
+                incomeValue += item.amount;
+            });
+            balanceAmount = incomeValue - expensesValue;
+            balanceAmount = balanceAmount.toFixed(2);
             res.status(200).json(balanceAmount);
         }
-        
 
-    }catch (error) {
+
+    } catch (error) {
         res.status(500).json({ message: error.message });
     }
 
 }
 
-exports.getTransactionItemById = async(req,res) => {
+exports.getTransactionItemById = async (req, res) => {
     try {
         const transactionItem = await TransactionItem.findOne({ where: { transaction_id: req.params.id }, });
         if (transactionItem === null) {
@@ -100,6 +98,45 @@ exports.getTransactionItemById = async(req,res) => {
         else {
             res.status(200).json(transactionItem);
         }
+
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+}
+
+exports.getAllCategoryExpenses = async (req, res) => {
+    try {
+        const allExpensesItem = await TransactionItem.findAll({ where: { type: 'expenses' } });
+        console.log(typeof (allExpensesItem));
+        if (allExpensesItem.length === 0) {
+            res.status(200).json("0");
+
+        }
+        else {
+            let totalCategoryExpenses = [];
+            // count all and get list of all the distinct category under expense that exist
+            const uniqueCategory = [...new Set(allExpensesItem.map(item => item.category))];
+            console.log(uniqueCategory);
+            uniqueCategory.forEach(categoryVariable => {
+                // using the list get the category and each total expenses
+                let expensesByCategory = allExpensesItem.filter((item) => {
+                    return item.category === categoryVariable;
+                })
+                var expensesValue =0;
+                expensesByCategory.forEach(item =>{
+                    expensesValue += item.amount;
+                })
+               var category = categoryVariable;
+               var amount = expensesValue;
+               var newItem = { category, amount};
+               totalCategoryExpenses.push(newItem);
+
+            });
+            console.log(totalCategoryExpenses);
+            // send the in json format the category name and the amount
+            res.status(200).json(totalCategoryExpenses);
+        }
+
 
     } catch (error) {
         res.status(500).json({ message: error.message });
