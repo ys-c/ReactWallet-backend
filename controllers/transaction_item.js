@@ -24,7 +24,6 @@ exports.createTransactionItem = async (req, res) => {
         })
 
     } catch (error) {
-        console.log(error.message);
         res.status(500).json({ message: error.message });
     }
 };
@@ -107,7 +106,7 @@ exports.getTransactionItemById = async (req, res) => {
 exports.getAllCategoryExpenses = async (req, res) => {
     try {
         const allExpensesItem = await TransactionItem.findAll({ where: { type: 'expenses' } });
-        console.log(typeof (allExpensesItem));
+       //console.log(typeof (allExpensesItem));
         if (allExpensesItem.length === 0) {
             res.status(200).json("0");
 
@@ -116,7 +115,7 @@ exports.getAllCategoryExpenses = async (req, res) => {
             let totalCategoryExpenses = [];
             // count all and get list of all the distinct category under expense that exist
             const uniqueCategory = [...new Set(allExpensesItem.map(item => item.category))];
-            console.log(uniqueCategory);
+            //console.log(uniqueCategory);
             uniqueCategory.forEach(categoryVariable => {
                 // using the list get the category and each total expenses
                 let expensesByCategory = allExpensesItem.filter((item) => {
@@ -132,7 +131,7 @@ exports.getAllCategoryExpenses = async (req, res) => {
                totalCategoryExpenses.push(newItem);
 
             });
-            console.log(totalCategoryExpenses);
+            //console.log(totalCategoryExpenses);
             // send the in json format the category name and the amount
             res.status(200).json(totalCategoryExpenses);
         }

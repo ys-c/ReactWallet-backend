@@ -1,5 +1,7 @@
 // import express
 const express = require("express");
+require('dotenv').config()
+global.refreshTokenList = [];
 
 // import body praser 
 const bodyPraser = require("body-parser");
@@ -17,6 +19,7 @@ app.use(bodyPraser.json());
 
 
 //listen for request
-app.listen(process.env.port || 4000, function(){
+const PORT = process.env.PORT;
+app.listen(PORT, function(){
     console.log('now listening to request');
 });

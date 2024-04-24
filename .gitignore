@@ -1,2 +1,6 @@
-# ignore ALL files in ANY directory named node_modules
-node_modules/
+notes.txt
+*.env
+*.env.example
+*.env.local
+*.env.staging
+/node_modules/*
