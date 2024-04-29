@@ -3,4 +3,4 @@ notes.txt
 *.env.example
 *.env.local
 *.env.staging
-/node_modules/*
+node_modules/*
