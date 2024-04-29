@@ -5,7 +5,7 @@ exports.getAllTransactionItem = async (req, res) => {
     try {
         const transactionItem = await TransactionItem.findAll();
         if (transactionItem.length === 0) {
-            res.status(404).json({ message: "There are currently no transactions" });
+            res.status(200).json([]);
         }
         else {
             res.status(200).json(transactionItem);
@@ -108,7 +108,7 @@ exports.getAllCategoryExpenses = async (req, res) => {
         const allExpensesItem = await TransactionItem.findAll({ where: { type: 'expenses' } });
        //console.log(typeof (allExpensesItem));
         if (allExpensesItem.length === 0) {
-            res.status(200).json("0");
+            res.status(200).json([]);
 
         }
         else {
